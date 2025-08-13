@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pro Toolkit para Electricistas</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="app-header">
+    <h1>⚡ Pro Toolkit para Electricistas</h1>
+    <p class="subtitle">Cálculos rápidos y prácticos para obra y taller</p>
+  </header>
+
+  <main class="container">
+    <aside class="sidebar">
+      <nav>
+        <button class="nav-btn active" data-target="ohm">Ley de Ohm</button>
+        <button class="nav-btn" data-target="potencia">Potencia (mono/tri)</button>
+        <button class="nav-btn" data-target="caida">Caída de Tensión</button>
+        <button class="nav-btn" data-target="cableado">Dimensionamiento de Cable</button>
+        <button class="nav-btn" data-target="protecciones">Protecciones</button>
+        <button class="nav-btn" data-target="balance">Balance de Cargas</button>
+        <button class="nav-btn" data-target="consumo">Consumo & Costos</button>
+        <button class="nav-btn" data-target="convertidor">Convertidor de Unidades</button>
+        <button class="nav-btn" data-target="resistencias">Resistencias (serie/paralelo)</button>
+        <button class="nav-btn" data-target="proyecto">Proyecto (guardar/cargar)</button>
+        <button class="nav-btn" data-target="acerca">Acerca de</button>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <!-- Ley de Ohm -->
+      <section id="ohm" class="card visible">
+        <h2>Ley de Ohm</h2>
+        <div class="grid">
+          <label>Voltaje (V)
+            <input type="number" id="ohmV" placeholder="V">
+          </label>
+          <label>Corriente (A)
+            <input type="number" id="ohmI" placeholder="A">
+          </label>
+          <label>Resistencia (Ω)
+            <input type="number" id="ohmR" placeholder="Ω">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnOhm">Calcular</button>
+          <button class="secondary" data-clear="ohm">Limpiar</button>
+        </div>
+        <output id="outOhm" class="output"></output>
+      </section>
+
+      <!-- Potencia -->
+      <section id="potencia" class="card">
+        <h2>Potencia</h2>
+        <div class="grid">
+          <label>Tipo de sistema
+            <select id="tipoSistema">
+              <option value="mono">Monofásico</option>
+              <option value="tri">Trifásico</option>
+            </select>
+          </label>
+          <label>Voltaje de línea (V)
+            <input type="number" id="potV" placeholder="Ej: 230 (mono) / 400 (tri)">
+          </label>
+          <label>Corriente (A)
+            <input type="number" id="potI" placeholder="A">
+          </label>
+          <label>Factor de potencia (cos φ)
+            <input type="number" id="potFP" step="0.01" placeholder="0.8">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnPot">Calcular</button>
+          <button class="secondary" data-clear="potencia">Limpiar</button>
+        </div>
+        <output id="outPot" class="output"></output>
+      </section>
+
+      <!-- Caída de Tensión -->
+      <section id="caida" class="card">
+        <h2>Caída de Tensión</h2>
+        <div class="grid">
+          <label>Tipo de sistema
+            <select id="caidaTipo">
+              <option value="mono">Monofásico</option>
+              <option value="tri">Trifásico</option>
+            </select>
+          </label>
+          <label>Longitud del tramo (m)
+            <input type="number" id="caidaL" placeholder="m">
+          </label>
+          <label>Corriente (A)
+            <input type="number" id="caidaI" placeholder="A">
+          </label>
+          <label>Material
+            <select id="caidaMaterial">
+              <option value="Cu">Cobre</option>
+              <option value="Al">Aluminio</option>
+            </select>
+          </label>
+          <label>Sección (mm²)
+            <input type="number" id="caidaS" placeholder="mm²">
+          </label>
+          <label>Voltaje nominal (V)
+            <input type="number" id="caidaVn" placeholder="V (ej: 230/400)">
+          </label>
+          <label>Caída admisible (%)
+            <input type="number" id="caidaPct" step="0.1" placeholder="ej: 3">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnCaida">Calcular</button>
+          <button class="secondary" data-clear="caida">Limpiar</button>
+        </div>
+        <output id="outCaida" class="output"></output>
+      </section>
+
+      <!-- Dimensionamiento de Cable -->
+      <section id="cableado" class="card">
+        <h2>Dimensionamiento de Cable (aprox.)</h2>
+        <div class="grid">
+          <label>Potencia total (kW)
+            <input type="number" id="cabKw" step="0.01" placeholder="kW">
+          </label>
+          <label>Voltaje (V)
+            <input type="number" id="cabV" placeholder="230/400">
+          </label>
+          <label>Tipo de sistema
+            <select id="cabTipo">
+              <option value="mono">Monofásico</option>
+              <option value="tri">Trifásico</option>
+            </select>
+          </label>
+          <label>Factor de potencia
+            <input type="number" id="cabFP" step="0.01" placeholder="0.9">
+          </label>
+          <label>Longitud (m)
+            <input type="number" id="cabL" placeholder="m">
+          </label>
+          <label>Material
+            <select id="cabMat">
+              <option value="Cu">Cobre</option>
+              <option value="Al">Aluminio</option>
+            </select>
+          </label>
+          <label>Caída admisible (%)
+            <input type="number" id="cabPct" step="0.1" placeholder="3">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnCable">Sugerir sección</button>
+          <button class="secondary" data-clear="cableado">Limpiar</button>
+        </div>
+        <output id="outCable" class="output"></output>
+        <p class="note">Nota: estimaciones basadas en resistividades típicas y capacidades estándar. Verificar contra normativa local (IEC/UTE/NEC).</p>
+      </section>
+
+      <!-- Protecciones -->
+      <section id="protecciones" class="card">
+        <h2>Protecciones (aprox.)</h2>
+        <div class="grid">
+          <label>Corriente de diseño (A)
+            <input type="number" id="protI" placeholder="A">
+          </label>
+          <label>Curva interruptor
+            <select id="protCurva">
+              <option value="B">B (residencial)</option>
+              <option value="C">C (motores ligeros)</option>
+              <option value="D">D (picos altos)</option>
+            </select>
+          </label>
+          <label>Sensibilidad DDR (mA)
+            <select id="protDDR">
+              <option value="30">30 mA (personas)</option>
+              <option value="100">100 mA</option>
+              <option value="300">300 mA (incendio)</option>
+            </select>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnProt">Sugerir</button>
+          <button class="secondary" data-clear="protecciones">Limpiar</button>
+        </div>
+        <output id="outProt" class="output"></output>
+      </section>
+
+      <!-- Balance de cargas -->
+      <section id="balance" class="card">
+        <h2>Balance de Cargas Trifásico</h2>
+        <p>Distribuya cargas (kW) entre fases para minimizar el desbalance.</p>
+        <div class="grid three">
+          <label>Cargas disponibles (kW, separadas por coma)
+            <input type="text" id="balCargas" placeholder="ej: 1.2, 0.8, 2.5, 0.6, 1.0">
+          </label>
+          <label>Objetivo (número de fases)
+            <input type="number" id="balFases" value="3" min="2" max="3">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnBalance">Balancear</button>
+          <button class="secondary" data-clear="balance">Limpiar</button>
+        </div>
+        <output id="outBalance" class="output"></output>
+      </section>
+
+      <!-- Consumo y costos -->
+      <section id="consumo" class="card">
+        <h2>Consumo & Costos</h2>
+        <div class="grid">
+          <label>Potencia (kW)
+            <input type="number" id="consKw" step="0.01">
+          </label>
+          <label>Horas por día
+            <input type="number" id="consHoras" value="8">
+          </label>
+          <label>Días por mes
+            <input type="number" id="consDias" value="30">
+          </label>
+          <label>Tarifa (USD/kWh)
+            <input type="number" id="consTarifa" step="0.0001" placeholder="Ej: 0.25">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnConsumo">Calcular</button>
+          <button class="secondary" data-clear="consumo">Limpiar</button>
+        </div>
+        <output id="outConsumo" class="output"></output>
+      </section>
+
+      <!-- Convertidor -->
+      <section id="convertidor" class="card">
+        <h2>Convertidor de Unidades</h2>
+        <div class="grid three">
+          <label>mm² → AWG
+            <input type="number" id="mm2" placeholder="mm²">
+          </label>
+          <label>AWG → mm²
+            <input type="text" id="awg" placeholder="AWG (ej: 12)">
+          </label>
+          <label>W ↔ kW
+            <input type="number" id="wkw" placeholder="W o kW">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnConv">Convertir</button>
+          <button class="secondary" data-clear="convertidor">Limpiar</button>
+        </div>
+        <output id="outConv" class="output"></output>
+      </section>
+
+      <!-- Resistencias -->
+      <section id="resistencias" class="card">
+        <h2>Resistencias</h2>
+        <div class="grid">
+          <label>Serie (Ω, separadas por coma)
+            <input type="text" id="serie" placeholder="ej: 10, 22, 100">
+          </label>
+          <label>Paralelo (Ω, separadas por coma)
+            <input type="text" id="paralelo" placeholder="ej: 100, 220, 330">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnRes">Calcular</button>
+          <button class="secondary" data-clear="resistencias">Limpiar</button>
+        </div>
+        <output id="outRes" class="output"></output>
+      </section>
+
+      <!-- Proyecto -->
+      <section id="proyecto" class="card">
+        <h2>Proyecto</h2>
+        <p>Guardá tus entradas y resultados en tu dispositivo (localStorage).</p>
+        <div class="actions">
+          <button id="btnSave">Guardar proyecto</button>
+          <button id="btnLoad" class="secondary">Cargar proyecto</button>
+          <button id="btnClearProject" class="danger">Borrar proyecto</button>
+        </div>
+        <output id="outProyecto" class="output"></output>
+      </section>
+
+      <!-- Acerca de -->
+      <section id="acerca" class="card">
+        <h2>Acerca de</h2>
+        <p>Esta herramienta ofrece estimaciones rápidas para profesionales. Confirmá siempre con normativa local (IEC/UTE/NEC) y hojas de datos del fabricante.</p>
+        <ul class="legal">
+          <li>Resistividades típicas: Cu 0.0172 Ω·mm²/m, Al 0.0282 Ω·mm²/m.</li>
+          <li>Capacidades de corriente aproximadas y selección de protecciones orientativas.</li>
+          <li>Sin garantías. Uso bajo responsabilidad del usuario.</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    Hecho para electricistas | codexloop.tech
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
